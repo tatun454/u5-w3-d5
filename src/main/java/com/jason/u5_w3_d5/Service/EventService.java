@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventService {
 
-    private final EventRepository eventRepository;
+    public final EventRepository eventRepository;
 
     @Transactional
     public Event createEvent(Event event, User organizer) {
@@ -47,5 +47,21 @@ public class EventService {
 
 
         return eventRepository.save(event);
+
+    }
+    @Transactional
+    public void deleteEvent(Long eventId, User organizer) {
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new ResourceNotFoundException("Evento con ID " + eventId + " non trovato."));
+
+        if (!event.getOrganizer().getId().equals(organizer.getId())) {
+            throw new AccessDeniedException("Non hai i permessi per eliminare questo evento.");
+        }
+
+        if (event.getAvailableSeats() != event.getTotalSeats()) {
+            throw new IllegalArgumentException("Impossibile eliminare: ci sono ancora prenotazioni attive per l'evento.");
+        }
+
+        eventRepository.delete(event);
     }
 }

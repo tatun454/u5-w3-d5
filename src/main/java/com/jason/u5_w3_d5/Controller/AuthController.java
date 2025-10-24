@@ -1,7 +1,7 @@
 package com.jason.u5_w3_d5.Controller;
 
 import com.jason.u5_w3_d5.Security.jwt.JwtAuthenticationResponse;
-import com.jason.u5_w3_d5.Security.jwt.JwtTokenProvider;
+import com.jason.u5_w3_d5.Security.jwt.JwtUtils;
 import com.jason.u5_w3_d5.Service.UserService;
 import com.jason.u5_w3_d5.DTO.LoginDTO;
 import com.jason.u5_w3_d5.DTO.UserRegistrationDTO;
@@ -23,7 +23,7 @@ public class AuthController {
 
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
-    private final JwtTokenProvider tokenProvider;
+    private final JwtUtils tokenProvider;
 
     @PostMapping("/register/user")
     @ResponseStatus(HttpStatus.CREATED)
@@ -48,7 +48,7 @@ public class AuthController {
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = tokenProvider.generateToken(authentication);
+        String jwt = tokenProvider.generateToken(String.valueOf(authentication));
 
 
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));

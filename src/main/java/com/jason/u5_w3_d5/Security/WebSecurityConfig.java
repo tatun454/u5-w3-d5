@@ -1,5 +1,8 @@
 package com.jason.u5_w3_d5.Security;
 
+import com.jason.u5_w3_d5.Security.jwt.JwtAuthenticationFilter;
+import com.jason.u5_w3_d5.Security.jwt.JwtUtils;
+import com.jason.u5_w3_d5.Service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -19,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    private final JwtTokenProvider tokenProvider;
+    private final JwtUtils tokenProvider;
     private final CustomUserDetailsService customUserDetailsService;
 
     @Bean
