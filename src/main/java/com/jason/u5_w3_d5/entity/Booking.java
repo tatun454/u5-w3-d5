@@ -27,5 +27,5 @@ public class Booking {
     @JoinColumn(name = "event_id", nullable = false)
     private Event event;
 
-    private LocalDateTime bookingDate;
+    private LocalDateTime bookingDate = LocalDateTime.now();
 }

@@ -32,6 +32,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Booking> bookings;
 
+    @OneToMany(mappedBy = "organizer")
+    private List<Event> organizedEvents;
 
 }
 
