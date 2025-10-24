@@ -30,6 +30,14 @@ public class WebSecurityConfig {
         return new JwtAuthenticationFilter(tokenProvider, customUserDetailsService);
     }
 
+    private final JwtUtils tokenProvider;
+    private final CustomUserDetailsService customUserDetailsService;
+
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+        return new JwtAuthenticationFilter(tokenProvider, customUserDetailsService);
+    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
